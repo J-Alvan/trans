@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.internal.Kapt3GradleSubplugin.Companion.findKaptConfiguration
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -16,6 +18,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -64,3 +67,4 @@ dependencies {
     implementation("androidx.compose.material3:material3:1.3.2")
     implementation("com.google.code.gson:gson:2.10.1")
 }
+
