@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.swifttrans.models.UserModel
-import com.example.swifttrans.navigation.ROUTE_HOME
-import com.example.swifttrans.navigation.ROUTE_LOGIN
+import com.example.swifttrans.navigation.ROUTE_DASHBOARD
+import com.example.swifttrans.navigation.ROUTE_PROFILE
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -38,17 +38,16 @@ class AuthViewModel:ViewModel() {
                     Toast.makeText(context,"Registration failed", Toast.LENGTH_LONG).show()
                 }
             }
-    }
-    fun saveUserToDatabase(userId:String, userData: UserModel,
-                           navController: NavController, context: Context){
+    }fun saveUserToDatabase(userId:String, userData: UserModel,
+                                   navController: NavController, context: Context){
         val regRef = FirebaseDatabase.getInstance()
             .getReference("Users/$userId")
-        regRef.setValue(userData).addOnCompleteListener {regRef->
-            if (regRef.isSuccessful){
+        regRef.setValue(userData).addOnCompleteListener {task->
+            if (task.isSuccessful){
                 Toast.makeText(context, "User Successfully Registered", Toast.LENGTH_LONG).show()
-                navController.navigate(ROUTE_HOME)
+                navController.navigate(ROUTE_DASHBOARD)
             }else{
-                _errorMessage.value = regRef.exception?.message
+                _errorMessage.value = task.exception?.message
                 Toast.makeText(context, "Database error", Toast.LENGTH_LONG).show()
 
             }
@@ -65,7 +64,7 @@ class AuthViewModel:ViewModel() {
                 _isLoading.value = false
                 if (task.isSuccessful) {
                     Toast.makeText(context, "Login Successful", Toast.LENGTH_LONG).show()
-                    navController.navigate(ROUTE_HOME)
+                    navController.navigate(ROUTE_DASHBOARD)
                 }else{
                     _errorMessage.value = task.exception?.message
                     Toast.makeText(context, "Login failed", Toast.LENGTH_LONG).show()
@@ -74,5 +73,4 @@ class AuthViewModel:ViewModel() {
 
     }
 
-    companion object
 }

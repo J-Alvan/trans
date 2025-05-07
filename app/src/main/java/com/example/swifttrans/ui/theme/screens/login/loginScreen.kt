@@ -13,9 +13,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.swifttrans.R
 import com.example.swifttrans.navigation.ROUTE_REGISTER
@@ -29,7 +31,7 @@ fun LoginScreen(navController: NavController) {
     val context = LocalContext.current
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var isLoading by remember { mutableStateOf(false) }
+    val isLoading by remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -44,7 +46,7 @@ fun LoginScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(title = { Text(
-                text ="Swift Trans Login",
+                text ="Swift Trans",
                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                 color = MaterialTheme.colorScheme.onPrimary) })
         }
@@ -55,7 +57,30 @@ fun LoginScreen(navController: NavController) {
                 .padding(20.dp)
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Center
-        ) {
+        )  {
+            // Logo and Title
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                    Image(
+                        painter = painterResource(R.drawable.logo),
+                        contentDescription = "Swift Trans Logo",
+                        modifier = Modifier
+                            .size(48.dp)
+                            .padding(end = 8.dp)
+                    )
+                Text(
+                    text = "Login Here",
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = Color.White,
+                    fontSize = 36.sp
+                )
+            }
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },

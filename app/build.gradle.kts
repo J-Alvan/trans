@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.internal.Kapt3GradleSubplugin.Companion.findKaptConfiguration
 
 plugins {
     alias(libs.plugins.android.application)
@@ -72,5 +71,6 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
     implementation("androidx.compose.material3:material3:1.3.2")
     implementation("com.google.code.gson:gson:2.10.1")
+
 }
 

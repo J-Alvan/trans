@@ -5,20 +5,24 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BookingScreen() {
+fun BookingScreen(navController: NavController) {
     var name by remember { mutableStateOf("") }
     var selectedRoute by remember { mutableStateOf("") }
     var travelDate by remember { mutableStateOf("") }
     var phoneNumber by remember { mutableStateOf("") }
     var id by remember { mutableStateOf("") }
+
+
 
     Scaffold(
         topBar = {
@@ -87,5 +91,5 @@ fun BookingScreen() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun BookingScreenPreview() {
-    BookingScreen()
+    BookingScreen(navController = NavController(LocalContext.current))
 }

@@ -1,4 +1,4 @@
-package com.example.swifttrans.ui.theme.screens.home
+package com.example.swifttrans.ui.theme.screens.dashboard
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,17 +20,16 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.swifttrans.R
-import com.example.swifttrans.ui.theme.screens.register.RegisterScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavController) {
+fun DashboardScreen(navController: NavController) {
     val cardModifier = Modifier
         .fillMaxWidth()
         .height(100.dp)
         .padding(horizontal = 16.dp, vertical = 8.dp)
 
-    val items = listOf("Home", "Routes", "Book", "Profile")
+    val items = listOf("Dashboard", "Routes", "Book", "Profile")
     var selectedItem by rememberSaveable { mutableIntStateOf(0) }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -76,7 +75,7 @@ fun HomeScreen(navController: NavController) {
                         NavigationBarItem(
                             icon = {
                                 when (item) {
-                                    "Home" -> Icon(Icons.Default.Home, contentDescription = item)
+                                    "Dashboard" -> Icon(Icons.Default.Home, contentDescription = item)
                                     "Routes" -> Icon(Icons.Default.Place, contentDescription = item)
                                     "Book" -> Icon(Icons.Default.Add, contentDescription = item)
                                     "Profile" -> Icon(Icons.Default.AccountCircle, contentDescription = item)
@@ -127,7 +126,7 @@ fun HomeScreen(navController: NavController) {
                 }
 
                 Card(
-                    modifier = cardModifier.clickable { navController.navigate("trips") },
+                    modifier = cardModifier.clickable { navController.navigate("register") },
                     colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = 0.9f))
                 ) {
                     CenteredCardText("My Trips")
@@ -158,6 +157,6 @@ fun CenteredCardText(text: String) {
 }
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun HomeScreenPreview() {
-    HomeScreen(navController = NavController(LocalContext.current))
+fun DashboardScreenPreview() {
+    DashboardScreen(navController = NavController(LocalContext.current))
 }
