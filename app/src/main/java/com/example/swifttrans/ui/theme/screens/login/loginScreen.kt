@@ -2,27 +2,30 @@ package com.example.swifttrans.ui.theme.screens.login
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.foundation.background
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import android.widget.Toast
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.layout.ContentScale
-import coil.compose.rememberAsyncImagePainter
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.swifttrans.R
+import com.example.swifttrans.navigation.ROUTE_REGISTER
+import com.example.swifttrans.data.AuthViewModel
 
-
-//import com.google.firebase.auth.FirebaseAuth
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavController) {
+    val authViewModel: AuthViewModel = viewModel()
     val context = LocalContext.current
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -32,12 +35,12 @@ fun LoginScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
     ) {
-//        Image(
-//            painter = painterResource(id = R.drawable.bus),
-//            contentDescription = null,
-//            contentScale = ContentScale.Crop,
-//            modifier = Modifier.fillMaxSize()
-//        )
+        Image(
+            painter = painterResource(id = R.drawable.bus),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
     Scaffold(
         topBar = {
             TopAppBar(title = { Text(
@@ -74,17 +77,7 @@ fun LoginScreen(navController: NavController) {
 
             Button(
                 onClick = {
-//                    isLoading = true
-//                    FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-//                        .addOnCompleteListener { task ->
-//                            isLoading = false
-//                            if (task.isSuccessful) {
-//                                Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT).show()
-//                                navController.navigate("home") // Navigate to home screen
-//                            } else {
-//                                Toast.makeText(context, "Login Failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
-//                            }
-//                        }
+                    authViewModel.login(email, password, navController, context)
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -103,13 +96,16 @@ fun LoginScreen(navController: NavController) {
             TextButton(onClick = {
                 navController.navigate("register")
             }) {
-                Text("Don’t have an account? Register")
-            }
+                Text(
+                    text = buildAnnotatedString { append("Don't have an account? Register Here ") },
+                    modifier = Modifier.wrapContentWidth().clickable {
+                        navController.navigate(ROUTE_REGISTER)
+            })
         }
     }
-}}
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun LoginScreenPreview() {
-//    LoginScreen(navController = NavController(LocalContext.current))
-//}
+}}}
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun LoginScreenPreview() {
+    LoginScreen(navController = NavController(LocalContext.current))
+}
